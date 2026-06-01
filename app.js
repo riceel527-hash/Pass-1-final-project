@@ -10,14 +10,22 @@ async function init() {
 // 2. Display results
 function displayResults(items) {
     const list = document.getElementById('results');
-    list.innerHTML = items.map(item => `<li>${item.title}</li>`).join('');
+    list.innerHTML = items.map(item => `<li><strong>${item.title}</strong><br>${item.body}</li>`).join('');
 }
 
 // 3. Search Logic
+
 document.getElementById('searchInput').addEventListener('input', (e) => {
     const term = e.target.value.toLowerCase();
-    const filtered = allData.filter(item => item.title.toLowerCase().includes(term));
+    const filtered = allData.filter(post => 
+        post.title.toLowerCase().includes(term) || 
+        post.body.toLowerCase().includes(term)
+    );
+    
     displayResults(filtered);
 });
 
 init();
+
+
+    
