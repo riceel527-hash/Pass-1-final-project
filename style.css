@@ -1,5 +1,31 @@
-body { font-family: sans-serif; padding: 20px; }
-#searchInput, #idInput { width: 250px; padding: 10px; margin-bottom: 20px; margin-right:
+/* Update your body style to turn it into a flex container */
+body { 
+    font-family: sans-serif; 
+    padding: 20px; 
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh; /* Takes up the full height of the screen */
+}
+
+/* This forces the results area to expand and push the footer down */
+#results { 
+    flex: 1; 
+    padding: 10px; 
+    border-bottom: 1px solid #ccc; 
+    list-style-type: none; 
+}
+
+/* Style the footer beautifully */
+footer {
+    background-color: #333;
+    color: #fff;
+    text-align: center;
+    padding: 15px;
+    margin-top: 20px;
+    border-radius: 4px;
+    font-size: 0.9em;
+}
+
 li { padding: 10px; border-bottom: 1px solid #ccc; list-style-type: none; }
-/* Styling a badge for the IDs so they are easy to read in the results*/
 .id-badge { color: #666; font-size: 0.85em; margin-bottom: 4px; display: block; }

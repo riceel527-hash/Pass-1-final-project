@@ -1,51 +1,60 @@
-let allData = []; 
-// 1. Fetch data once on startup 
+let allData = [];
+
 async function init() {
-      const res = await fetch('https://jsonplaceholder.typicode.com/posts'); 
-       allData = await res.json(); 
-       displayResults(allData);
- }
- // 2. Display results (Updated to show ID numbers to the user) 
+    try {
+        const res = await fetch('https://jsonplaceholder.typicode.com/posts');
+        allData = await res.json();
+        displayResults(allData);
+    } catch (error) {
+        console.error("Data failed to fetch:", error);
+    }
+}
 
-function displayResults(items) { 
-const list = document.getElementById('results'); 
-list.innerHTML = items.map(item => ` 
-<li> 
-<span class="id-badge">User ID: ${item.userId} | Post ID: ${item.id}</span> <strong>${item.title}</strong> 
-</li>
- `).join(''); } 
+function displayResults(items) {
+    const list = document.getElementById('results');
+    if (!list) return; 
 
-// 3. New Combined Search/Filter Logic 
-function filterData() { 
-const textTerm = document.getElementById('searchInput').value.toLowerCase(); 
-const idTerm = document.getElementById('idInput').value; // This grabs the number typed 
+    list.innerHTML = items.map(item => `
+        <li>
+            <span class="id-badge">User ID: ${item.userId} | Post ID: ${item.id}</span>
+            <br>
+            <strong>${item.title}</strong>
+        </li>
+    `).join('');
+}
 
-const filtered = allData.filter(item => { 
+// Updated Combined Search, Filter, and Sort Logic
+function filterAndSortData() {
+    const textTerm = document.getElementById('searchInput').value.toLowerCase();
+    const idTerm = document.getElementById('idInput').value; 
+    const sortOrder = document.getElementById('sortOrder').value; // Grabs 'az' or 'za'
 
-     // Condition A: Does the title match the text search? 
+    // STEP 1: Filter the data exactly like before
+    let processedData = allData.filter(item => {
+        const matchesText = item.title.toLowerCase().includes(textTerm);
+        const matchesId = idTerm === "" || 
+                          item.userId.toString() === idTerm || 
+                          item.id.toString() === idTerm;
 
-const matchesText = item.title.toLowerCase().includes(textTerm); 
+        return matchesText && matchesId;
+    });
 
-// Condition B: Does the ID match? 
-// If the ID input box is empty, we want to show everything (return true).
- // If it's NOT empty, check if it matches the userId OR the post id. 
+    // STEP 2: Sort the filtered data alphabetically
+    if (sortOrder === "az") {
+        processedData.sort((a, b) => a.title.localeCompare(b.title));
+    } else if (sortOrder === "za") {
+        processedData.sort((a, b) => b.title.localeCompare(a.title));
+    }
 
-const matchesId = idTerm === "" || 
-                              item.userId.toString() === idTerm || 
-                              item.id.toString() === idTerm; 
-// Both conditions must pass 
+    // STEP 3: Display the clean, sorted data
+    displayResults(processedData);
+}
 
-return matchesText && matchesId; 
-}); 
+// Attach the new unified function to all three input controls
+document.getElementById('searchInput').addEventListener('input', filterAndSortData);
+document.getElementById('idInput').addEventListener('input', filterAndSortData);
+document.getElementById('sortOrder').addEventListener('change', filterAndSortData);
 
-displayResults(filtered); 
-} 
-
-// 4. Attach the filter function to both input fields
-document.getElementById('searchInput').addEventListener('input', filterData); 
-document.getElementById('idInput').addEventListener('input', filterData);
-
-// Initialize the app
 init();
 
 
