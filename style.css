@@ -1,3 +1,5 @@
 body { font-family: sans-serif; padding: 20px; }
-#searchInput { width: 300px; padding: 10px; margin-bottom: 20px; }
-li { padding: 5px; border-bottom: 1px solid #ccc; }
+#searchInput, #idInput { width: 250px; padding: 10px; margin-bottom: 20px; margin-right:
+li { padding: 10px; border-bottom: 1px solid #ccc; list-style-type: none; }
+/* Styling a badge for the IDs so they are easy to read in the results*/
+.id-badge { color: #666; font-size: 0.85em; margin-bottom: 4px; display: block; }
