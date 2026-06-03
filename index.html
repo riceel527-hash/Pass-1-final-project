@@ -1,26 +1,107 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>API Search & Sort</title>
+    
+    <style>
+        /* 1. Clean, minimalist background for the screen */
+        body {
+            margin: 0;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            background-color: #f4f7f6; /* A soft, modern light-gray background */
+            font-family: sans-serif;
+            padding: 40px 20px;
+            box-sizing: border-box;
+        }
+
+        /* 2. The Dashboard Card */
+        .main-container {
+            background-color: #ffffff;
+            border-radius: 12px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05); /* Soft, subtle shadow */
+            width: 100%;
+            max-width: 1100px;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden; /* This keeps the image corners rounded inside the card */
+        }
+
+        /* 3. NEW: The Header Image Banner */
+        .banner-image {
+            .banner-image {
+            width: 100%;
+            height: 200px;            /* 1. Made it slightly shorter so it takes up less space */
+            object-fit: contain;      /* 2. THE FIX: Forces the entire image to be fully visible */
+            background-color: #ffffff; /* 3. Matches the card background so the margins blend in */
+            padding-top: 15px;        /* 4. Adds a little breathing room around the shrunk image */
+            box-sizing:border-box;
+            }
+
+        /* Padding container for the content below the image */
+        .content-area {
+            padding: 30px;
+            display: flex;
+            flex-direction: column;
+            min-height: 60vh;
+        }
+
+        h1 {
+            margin-top: 0;
+            color: #222;
+            font-size: 24px;
+        }
+
+        .filter-container {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
+        #searchInput, #idInput, #sortOrder {
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            font-size: 14px;
+        }
+        
+        #searchInput { flex: 3; }
+        #idInput {  max-width: 200px; }
+        #sortOrder {  max-width: 200px; }
+    </style>
+
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <h1>API Search & Sort</h1>
-    
-    <div class="filter-container">
-        <input type="text" id="searchInput" placeholder="Search by title...">
-        <input type="number" id="idInput" placeholder="User or Post ID...">
-        <select id="sortOrder">
-            <option value="none">Sort: Default</option>
-            <option value="az">Alphabetical (A-Z)</option>
-            <option value="za">Alphabetical (Z-A)</option>
-        </select>
-    </div>
-    
-    <ul id="results"></ul>
 
-    <footer>
-        <p>&copy; 2026 API Search Dashboard. Powered by JSONPlaceholder.</p>
-    </footer>
+    <div class="main-container">
+        <img class="banner-image" src="Benefits-of-APIs.jpg" alt="Benefits of APIs">
+        
+        <div class="content-area">
+            <h1>API Search & Sort</h1>
+            
+            <div class="filter-container">
+                <input type="text" id="searchInput" placeholder="Search by title...">
+                <input type="number" id="idInput" placeholder="User or Post ID...">
+                <select id="sortOrder">
+                    <option value="none">Sort: Default</option>
+                    <option value="az">Alphabetical (A-Z)</option>
+                    <option value="za">Alphabetical (Z-A)</option>
+                </select>
+            </div>
+            
+            <ul id="results"></ul>
+
+            <footer>
+                <p>&copy; 2026 API Search Dashboard. Powered by JSONPlaceholder.</p>
+            </footer>
+        </div>
+    </div>
 
     <script src="app.js"></script>
 </body>

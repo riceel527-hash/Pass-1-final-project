@@ -55,7 +55,10 @@ document.getElementById('searchInput').addEventListener('input', filterAndSortDa
 document.getElementById('idInput').addEventListener('input', filterAndSortData);
 document.getElementById('sortOrder').addEventListener('change', filterAndSortData);
 
+
+
 init();
+
 
 
 
