@@ -23,13 +23,12 @@ function displayResults(items) {
     `).join('');
 }
 
-// Updated Combined Search, Filter, and Sort Logic
+
 function filterAndSortData() {
     const textTerm = document.getElementById('searchInput').value.toLowerCase();
     const idTerm = document.getElementById('idInput').value; 
-    const sortOrder = document.getElementById('sortOrder').value; // Grabs 'az' or 'za'
+    const sortOrder = document.getElementById('sortOrder').value;
 
-    // STEP 1: Filter the data exactly like before
     let processedData = allData.filter(item => {
         const matchesText = item.title.toLowerCase().includes(textTerm);
         const matchesId = idTerm === "" || 
@@ -39,18 +38,15 @@ function filterAndSortData() {
         return matchesText && matchesId;
     });
 
-    // STEP 2: Sort the filtered data alphabetically
     if (sortOrder === "az") {
         processedData.sort((a, b) => a.title.localeCompare(b.title));
     } else if (sortOrder === "za") {
         processedData.sort((a, b) => b.title.localeCompare(a.title));
     }
 
-    // STEP 3: Display the clean, sorted data
     displayResults(processedData);
 }
 
-// Attach the new unified function to all three input controls
 document.getElementById('searchInput').addEventListener('input', filterAndSortData);
 document.getElementById('idInput').addEventListener('input', filterAndSortData);
 document.getElementById('sortOrder').addEventListener('change', filterAndSortData);

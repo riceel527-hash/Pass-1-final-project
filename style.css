@@ -7,12 +7,12 @@
 li { 
     padding: 15px 5px; 
     border-bottom: 1px solid #eee; 
-    color: #333; /* Dark gray text is easier to read than pure black */
+    color: #333; 
     line-height: 1.4;
 }
 
 .id-badge { 
-    color: #0066cc; /* Gives the IDs a nice, distinct blue color */
+    color: #0066cc; 
     font-size: 0.85em; 
     font-weight: bold;
     margin-bottom: 4px; 
@@ -25,6 +25,6 @@ footer {
     color: #777;
     font-size: 0.85em;
     border-top: 1px solid #eee;
-    margin-top: auto; /* Pushes footer to the bottom of the white card */
+    margin-top: auto; 
 }
 
