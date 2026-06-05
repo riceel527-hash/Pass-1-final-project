@@ -1,11 +1,12 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>API Search & Sort</title>
+    <title>API Search & Sort Dashboard</title>
     
     <style>
+        /* 1. Global Page Background Layout */
         body {
             margin: 0;
             min-height: 100vh;
@@ -18,6 +19,7 @@
             box-sizing: border-box;
         }
 
+        /* 2. Main Application Card */
         .main-container {
             background-color: #ffffff;
             border-radius: 12px;
@@ -26,19 +28,20 @@
             max-width: 1100px;
             display: flex;
             flex-direction: column;
-            overflow: hidden; 
+            overflow: hidden;
         }
 
+        /* 3. Header Image Banner Zone */
         .banner-image {
-            .banner-image {
             width: 100%;
-            height: 200px;           
-            object-fit: contain;      
-            background-color: #ffffff; 
-            padding-top: 15px;       
-            box-sizing:border-box;
-            }
+            height: 200px; 
+            object-fit: contain;
+            background-color: #ffffff;
+            padding-top: 15px;
+            box-sizing: border-box;
+        }
 
+        /* 4. Content Area Wrapper */
         .content-area {
             padding: 30px;
             display: flex;
@@ -46,12 +49,46 @@
             min-height: 60vh;
         }
 
-        h1 {
+        h2 {
             margin-top: 0;
             color: #222;
-            font-size: 24px;
+            font-size: 18px;
+            border-bottom: 2px solid #eee;
+            padding-bottom: 8px;
         }
 
+        /* 5. Navigation Utilities */
+        .navbar {
+            background-color: #ffffff;
+            padding: 15px 30px;
+            border-bottom: 1px solid #eee;
+            display: flex;
+            justify-content: flex-start;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 15px;
+        }
+
+        .nav-btn {
+            background: none;
+            border: none;
+            color: #64748b;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            padding: 6px 12px;
+            border-radius: 4px;
+            transition: all 0.2s ease;
+        }
+
+        .nav-btn:hover {
+            color: #0066cc;
+            background-color: #f0f7ff;
+        }
+
+        /* 6. Filter Controls Framework */
         .filter-container {
             display: flex;
             gap: 10px;
@@ -64,23 +101,36 @@
             border: 1px solid #ddd;
             border-radius: 6px;
             font-size: 14px;
+            box-sizing: border-box;
         }
         
         #searchInput { flex: 3; }
-        #idInput {  max-width: 200px; }
-        #sortOrder {  max-width: 200px; }
+        #idInput { max-width: 200px; } 
+        #sortOrder { max-width: 200px; } 
     </style>
-
+    
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
     <div class="main-container">
+        
+        <nav class="navbar">
+            <div class="nav-links">
+                <button class="nav-btn" onclick="goHome()">Home</button>
+                <button class="nav-btn" onclick="scrollToContact()">Contact</button>
+            </div>
+        </nav>
+
         <img class="banner-image" src="Benefits-of-APIs.jpg" alt="Benefits of APIs">
         
         <div class="content-area">
-            <h1>API Search & Sort</h1>
             
+            <h2>Team Contributors</h2>
+            <div class="user-cards-container" id="userCards">
+                </div>
+
+            <h2>Search & Filter Posts</h2>
             <div class="filter-container">
                 <input type="text" id="searchInput" placeholder="Search by title...">
                 <input type="number" id="idInput" placeholder="User or Post ID...">
@@ -89,6 +139,11 @@
                     <option value="az">Alphabetical (A-Z)</option>
                     <option value="za">Alphabetical (Z-A)</option>
                 </select>
+            </div>
+            
+            <div id="loadingContainer" class="loading-container">
+                <div class="spinner"></div>
+                <p>Loading Dashboard Assets...</p>
             </div>
             
             <ul id="results"></ul>
