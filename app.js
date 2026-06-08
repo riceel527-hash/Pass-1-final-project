@@ -1,39 +1,37 @@
-// ========================================================
-// GLOBAL DATA STORAGE (Always at the very top)
-// ========================================================
+
+
 let allData = [];
 let allUsers = [];
 
-// ========================================================
-// 1. LIFECYCLE INITIALIZATION WITH LOADING STATE
-// ========================================================
+
+
 async function init() {
     const loadingContainer = document.getElementById('loadingContainer');
     
     try {
-        // Fetch BOTH resources simultaneously
+   
         const [postsResponse, usersResponse] = await Promise.all([
             fetch('https://jsonplaceholder.typicode.com/posts'),
             fetch('https://jsonplaceholder.typicode.com/users')
         ]);
 
-        // Parse responses to JSON
+     
         allData = await postsResponse.json();
         allUsers = await usersResponse.json();
 
-        // Hide the loading spinner now that data is successfully cached
+      
         if (loadingContainer) {
             loadingContainer.style.display = 'none';
         }
 
-        // Render both dashboard modules onto the screen
+    
         displayUserCards(allUsers);
         displayResults(allData);
 
     } catch (error) {
         console.error("Data failed to fetch:", error);
         
-        // Error handling fallback: visual indicator in the DOM
+        
         if (loadingContainer) {
             loadingContainer.innerHTML = `
                 <p style="color: #ef4444; font-weight: bold; text-align: center;">
@@ -44,9 +42,8 @@ async function init() {
     }
 }
 
-// ========================================================
-// 2. USER INTERFACE RENDERING BLOCKS
-// ========================================================
+
+
 function displayUserCards(users) {
     const container = document.getElementById('userCards');
     if (!container) return;
@@ -62,7 +59,7 @@ function displayUserCards(users) {
     `).join('');
 }
 
-// INTERACTIVE CLICK HANDLER (Ties top user cards to search inputs)
+
 function selectUser(userId) {
     const idInput = document.getElementById('idInput');
     if (!idInput) return;
@@ -71,7 +68,6 @@ function selectUser(userId) {
     filterAndSortData();
 }
 
-// 3. POST RESULTS RENDERING
 function displayResults(items) {
     const list = document.getElementById('results');
     if (!list) return; 
@@ -85,9 +81,7 @@ function displayResults(items) {
     `).join('');
 }
 
-// ========================================================
-// 3. SEARCH, FILTER, AND SORT LOGIC
-// ========================================================
+
 function filterAndSortData() {
     const textTerm = document.getElementById('searchInput').value.toLowerCase();
     const idTerm = document.getElementById('idInput').value; 
@@ -111,9 +105,7 @@ function filterAndSortData() {
     displayResults(processedData);
 }
 
-// ========================================================
-// 4. NAVIGATION MANAGEMENT
-// ========================================================
+
 function goHome() {
     document.getElementById('searchInput').value = '';
     document.getElementById('idInput').value = '';
@@ -128,14 +120,11 @@ function scrollToContact() {
     }
 }
 
-// ========================================================
-// 5. EVENT LISTENERS & INVOCATION (Always at the absolute bottom)
-// ========================================================
 document.getElementById('searchInput').addEventListener('input', filterAndSortData);
 document.getElementById('idInput').addEventListener('input', filterAndSortData);
 document.getElementById('sortOrder').addEventListener('change', filterAndSortData);
 
-// Execute the app startup logic
+
 init();
 
 
